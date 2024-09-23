@@ -1,0 +1,84 @@
+.book-list {
+    padding: 40px;
+    background-color: #f4f4f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .book-list h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px; 
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover;
+    border-bottom: 3px solid #B2E0D9 ;
+  }
+  
+  .card-content {
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .card-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #FF6F61;
+    text-transform: capitalize;
+  }
+  
+  .card-content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .card-content p::after {
+    content: '...';
+    display: inline-block;
+  }
+  
+  @media (max-width: 768px) {
+    .card-content h2 {
+      font-size: 1.4rem;
+    }
+  
+    .card-content p {
+      font-size: 0.9rem;
+    }
+  }
+  
