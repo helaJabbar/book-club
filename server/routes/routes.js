@@ -1,7 +1,11 @@
 const express = require("express");
 const { NewBook } = require("../controllers/NewBook-Controller");
 const { registerUser } = require("../controllers/Register-Controller");
-const { getAllBooks } = require("../controllers/BookList-Controller");
+const { getAllBooks }  = require("../controllers/BookList-Controller");
+const { loginUser }    = require("../controllers/Login-Controller"); 
+
+
+
 const { check } = require("express-validator");
 const multer = require("multer");
 
@@ -19,8 +23,6 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
-// Route pour ajouter un livre
-router.post("/add-book", upload.single("image"), NewBook);
 
 // Route pour l'inscription des utilisateurs
 router.post(
@@ -35,6 +37,7 @@ router.post(
   ],
   registerUser
 );
+router.post('/login', loginUser); 
 
 router.post("/add-book", upload.single("image"), NewBook);
 router.get("/", getAllBooks);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Importer axios pour les requêtes HTTP
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate pour la redirection
 import './Form.css';
 
 const Register = () => {
@@ -12,6 +13,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
 
   const handleChange = (e) => {
     setFormData({
@@ -47,6 +49,9 @@ const Register = () => {
         password: '',
         confirmPassword: ''
       }); // Réinitialiser le formulaire
+
+      // Rediriger vers la page de connexion après le succès de l'inscription
+      navigate('/login');
 
     } catch (err) {
       if (err.response && err.response.data.errors) {
