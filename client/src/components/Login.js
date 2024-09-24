@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";  // Importation du contexte utilisateur
 import "./Form.css";
 
 const Login = () => {
@@ -9,25 +10,31 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);  // Utilisation du contexte pour la connexion
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/books/login",
+        "http://localhost:8000/api/books/login", 
         {
           email,
           password,
         }
       );
 
+      // Stocker le message de succès
       setMessage(response.data.message);
 
-      localStorage.setItem("token", response.data.token);
+      // Appeler handleLogin pour mettre à jour l'état utilisateur dans le contexte
+      handleLogin(response.data.user.firstName, response.data.user.lastName);
+
+      // Rediriger après connexion réussie
       navigate("/");
+
     } catch (err) {
-      setMessage("");
+      setMessage("");  // Réinitialiser le message en cas d'erreur
       setError(
         err.response && err.response.data.message
           ? err.response.data.message
@@ -47,9 +54,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="form-group my-4">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
+              <label htmlFor="email" className="form-label">Email</label>
               <input
                 type="email"
                 className="form-control"
@@ -62,9 +67,7 @@ const Login = () => {
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <label htmlFor="password" className="form-label">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -76,14 +79,10 @@ const Login = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">
-              Login
-            </button>
+            <button type="submit" className="btn btn-primary w-100">Login</button>
 
             <p className="text-center mt-3">
-              <Link to="/register" className="nav-link btn-link">
-                Create an account
-              </Link>
+              <Link to="/register" className="nav-link btn-link">Create an account</Link>
             </p>
           </form>
         </div>
