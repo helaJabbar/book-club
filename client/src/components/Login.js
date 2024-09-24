@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { UserContext } from "../context/UserContext";  // Importation du contexte utilisateur
+import { UserContext } from "../context/UserContext";  
 import "./Form.css";
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { handleLogin } = useContext(UserContext);  // Utilisation du contexte pour la connexion
+  const { handleLogin } = useContext(UserContext); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,10 +23,8 @@ const Login = () => {
   
       setMessage(response.data.message);
   
-      // Vérifier que l'ID utilisateur est bien récupéré
       console.log("User ID from login:", response.data.user.userId);
   
-      // Appeler handleLogin pour mettre à jour le contexte utilisateur
       handleLogin(response.data.user.firstName, response.data.user.lastName, response.data.user.userId);
   
       navigate("/");

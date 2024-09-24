@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext"; // Import du contexte utilisateur
+import { UserContext } from "../context/UserContext"; 
 import "./Form.css";
-import etoile from "../assets/favori.png"; // Import de l'image de l'étoile
+import etoile from "../assets/favori.png";
 
 const BookDetails = () => {
-  const { id } = useParams(); // Récupère l'ID du livre depuis l'URL
+  const { id } = useParams();
   const [book, setBook] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false); // État pour gérer le favori
-  const { user } = useContext(UserContext); // Utilisation du contexte utilisateur pour obtenir userId
-  const navigate = useNavigate(); // Pour rediriger après suppression ou modification
+  const [isFavorite, setIsFavorite] = useState(false); 
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -20,13 +20,13 @@ const BookDetails = () => {
         );
         setBook(response.data);
 
-        // Attendre que userId soit défini avant de faire l'appel
+        
         if (user && user.userId) {
           const favoriteResponse = await axios.get(
             `http://localhost:8000/api/books/users/${user.userId}/favorites`
           );
           if (favoriteResponse.data.favorites.includes(id)) {
-            setIsFavorite(true); // Le livre est déjà favori
+            setIsFavorite(true);
           }
         } else {
           console.error("ID utilisateur non défini");
@@ -37,13 +37,13 @@ const BookDetails = () => {
     };
 
     if (user.userId) {
-      fetchBook(); // Appeler fetchBook uniquement lorsque userId est disponible
+      fetchBook(); 
     }
   }, [id, user]);
 
   const addToFavorites = async () => {
     try {
-      console.log("ID utilisateur :", user.userId); // Vérifie que l'ID est bien défini
+      console.log("ID utilisateur :", user.userId); 
 
       if (!user.userId) {
         // Si l'ID utilisateur est undefined, renvoie une erreur
@@ -53,10 +53,10 @@ const BookDetails = () => {
       await axios.post(
         `http://localhost:8000/api/books/users/${user.userId}/add-favorite`,
         {
-          bookId: id, // ID du livre actuel
+          bookId: id,
         }
       );
-      setIsFavorite(true); // Met à jour l'état pour afficher l'étoile
+      setIsFavorite(true); 
       alert("Livre ajouté aux favoris avec succès");
     } catch (error) {
       console.error("Erreur lors de l'ajout aux favoris", error);
@@ -67,14 +67,14 @@ const BookDetails = () => {
     try {
       await axios.delete(`http://localhost:8000/api/books/${id}`);
       alert("Livre supprimé avec succès");
-      navigate("/books"); // Rediriger vers la liste des livres après suppression
+      navigate("/books");
     } catch (error) {
       console.error("Erreur lors de la suppression du livre", error);
     }
   };
 
   const editBook = () => {
-    navigate(`/edit-book/${id}`); // Rediriger vers la page d'édition du livre
+    navigate(`/edit-book/${id}`); 
   };
 
   if (!book) {
@@ -90,7 +90,7 @@ const BookDetails = () => {
           className="img-book-card"
         />
         {isFavorite && (
-          <img src={etoile} alt="Favori" className="favorite-star" /> // Affiche l'étoile si le livre est un favori
+          <img src={etoile} alt="Favori" className="favorite-star" /> 
         )}
         <h2 className="book-title">{book.title}</h2>
         <p>
