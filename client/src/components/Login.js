@@ -14,34 +14,32 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post(
         "http://localhost:8000/api/books/login", 
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
-
-      // Stocker le message de succès
+  
       setMessage(response.data.message);
-
-      // Appeler handleLogin pour mettre à jour l'état utilisateur dans le contexte
-      handleLogin(response.data.user.firstName, response.data.user.lastName);
-
-      // Rediriger après connexion réussie
+  
+      // Vérifier que l'ID utilisateur est bien récupéré
+      console.log("User ID from login:", response.data.user.userId);
+  
+      // Appeler handleLogin pour mettre à jour le contexte utilisateur
+      handleLogin(response.data.user.firstName, response.data.user.lastName, response.data.user.userId);
+  
       navigate("/");
-
     } catch (err) {
-      setMessage("");  // Réinitialiser le message en cas d'erreur
-      setError(
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : "Erreur lors de la connexion. Veuillez vérifier vos informations."
-      );
+      setMessage("");
+      setError(err.response && err.response.data.message
+        ? err.response.data.message
+        : "Erreur lors de la connexion. Veuillez vérifier vos informations.");
     }
   };
+  
+  
+
 
   return (
     <div className="container">

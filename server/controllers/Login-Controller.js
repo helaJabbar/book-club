@@ -1,7 +1,6 @@
 const User = require('../models/User-Model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -18,12 +17,14 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+    // Retourne l'ID utilisateur avec le prénom et le nom
     return res.status(200).json({
       message: 'Vous êtes connecté',
       token,
       user: {
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
+        userId: user._id  
       }
     });
   } catch (error) {
@@ -32,4 +33,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser }; // Assure-toi d'exporter la fonction
+module.exports = { loginUser };

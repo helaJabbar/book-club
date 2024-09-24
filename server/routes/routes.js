@@ -5,16 +5,17 @@ const {
   getBookById,
   updateBook,
   deleteBook,
-} = require("../controllers/NewBook-Controller"); // Import des fonctions CRUD
+} = require("../controllers/NewBook-Controller");  // Import des fonctions CRUD
 const { registerUser } = require("../controllers/Register-Controller");
 const { loginUser } = require("../controllers/Login-Controller");
+const { addToFavorites, getFavorites } = require("../controllers/Favoris-Controller");  // Import des fonctions favoris
 const { check } = require("express-validator");
 const multer = require("multer");
 
 // Configuration de multer pour les fichiers image
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Assurez-vous que ce dossier existe
+    cb(null, "uploads/");  // Assurez-vous que ce dossier existe
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
@@ -50,16 +51,22 @@ router.get("/books", getAllBooks);
 // Route pour récupérer un livre par ID (Read - BookDetails.js)
 router.get("/books/:id", getBookById);
 
-
 // Route pour mettre à jour un livre (Update - EditBook.js)
 router.put("/:id", updateBook);
 
-
 // Route pour supprimer un livre (Delete)
-
 router.delete("/:id", deleteBook);
+
+// Route pour ajouter un livre aux favoris de l'utilisateur
+router.post("/users/:userId/add-favorite", addToFavorites);
+
+
+// Route pour récupérer les livres favoris de l'utilisateur
+router.get("/users/:userId/favorites", getFavorites);
+
 
 router.get("/", getAllBooks);  // Récupérer tous les livres
 router.get("/:id", getBookById);  // Route pour récupérer un livre par son ID
+
 
 module.exports = router;

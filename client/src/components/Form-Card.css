@@ -87,6 +87,18 @@
     max-width: 600px; 
     padding:10px;
   }
+  .book-cover-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .favorite-star {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 80px;
+    height: 80px;
+  }
   
   @media (max-width: 768px) {
     .card-content h2 {
