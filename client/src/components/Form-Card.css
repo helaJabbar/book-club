@@ -72,6 +72,8 @@
     display: inline-block;
   }
   
+
+  
   @media (max-width: 768px) {
     .card-content h2 {
       font-size: 1.4rem;

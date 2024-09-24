@@ -1,11 +1,13 @@
 const express = require("express");
-const { NewBook } = require("../controllers/NewBook-Controller");
+const {
+  NewBook,
+  getAllBooks,
+  getBookById,
+  updateBook,
+  deleteBook,
+} = require("../controllers/NewBook-Controller"); // Import des fonctions CRUD
 const { registerUser } = require("../controllers/Register-Controller");
-const { getAllBooks }  = require("../controllers/BookList-Controller");
-const { loginUser }    = require("../controllers/Login-Controller"); 
-
-
-
+const { loginUser } = require("../controllers/Login-Controller");
 const { check } = require("express-validator");
 const multer = require("multer");
 
@@ -20,9 +22,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
 const router = express.Router();
-
 
 // Route pour l'inscription des utilisateurs
 router.post(
@@ -37,8 +37,29 @@ router.post(
   ],
   registerUser
 );
-router.post('/login', loginUser); 
 
+// Route pour la connexion des utilisateurs
+router.post("/login", loginUser);
+
+// Route pour ajouter un nouveau livre (Create)
 router.post("/add-book", upload.single("image"), NewBook);
-router.get("/", getAllBooks);
+
+// Route pour récupérer tous les livres (Read - BookList.js)
+router.get("/books", getAllBooks);
+
+// Route pour récupérer un livre par ID (Read - BookDetails.js)
+router.get("/books/:id", getBookById);
+
+
+// Route pour mettre à jour un livre (Update - EditBook.js)
+router.put("/:id", updateBook);
+
+
+// Route pour supprimer un livre (Delete)
+
+router.delete("/:id", deleteBook);
+
+router.get("/", getAllBooks);  // Récupérer tous les livres
+router.get("/:id", getBookById);  // Route pour récupérer un livre par son ID
+
 module.exports = router;

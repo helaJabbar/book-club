@@ -1,35 +1,72 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import"./Form.css";
 
 const BookDetails = () => {
-  const { id } = useParams(); // Récupère l'id du livre à partir de l'URL
+  const { id } = useParams(); // Récupère l'ID du livre depuis l'URL
   const [book, setBook] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBookDetails = async () => {
+    const fetchBook = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/books/${id}`);
         setBook(response.data);
       } catch (error) {
-        console.error("Erreur lors de la récupération du livre :", error);
+        console.error("Erreur lors de la récupération du livre", error);
       }
     };
 
-    fetchBookDetails();
+    fetchBook();
   }, [id]);
 
-  if (!book) return <div>Chargement...</div>;
+  const addToFavorites = async () => {
+    try {
+      await axios.post(`http://localhost:8000/api/users/add-favorite`, { bookId: id });
+      alert("Livre ajouté aux favoris avec succès");
+    } catch (error) {
+      console.error("Erreur lors de l'ajout aux favoris", error);
+    }
+  };
+
+  const deleteBook = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/books/${id}`);
+      alert("Livre supprimé avec succès");
+      navigate("/books");  // Redirige vers la liste des livres après suppression
+    } catch (error) {
+      console.error("Erreur lors de la suppression du livre", error);
+    }
+  };
+  
+
+  const editBook = () => {
+    navigate(`/edit-book/${id}`); 
+  };
+
+  if (!book) {
+    return <div>Chargement...</div>;
+  }
 
   return (
-    <div className="book-details">
-      <h1>{book.title}</h1>
-      <img
-        src={`http://localhost:8000/${book.imageUrl.replace(/\\/g, "/")}`}
-        alt={book.title}
-        className="book-image"
-      />
-      <p>{book.description}</p>
+    <div>
+      <h2>{book.title}</h2>
+      <p>Auteur: {book.author}</p>
+      <p>Description: {book.description}</p>
+      <img src={`http://localhost:8000${book.imageUrl}`} alt={book.title} />
+
+      <div className="actions">
+        <button className="btn btn-primary w-100" onClick={addToFavorites}>
+          Ajouter aux favoris
+        </button>
+        <button className="btn btn-primary w-100" onClick={deleteBook}>
+          Supprimer
+        </button>
+        <button className="btn btn-primary w-100" onClick={editBook}>
+          Modifier
+        </button>
+      </div>
     </div>
   );
 };

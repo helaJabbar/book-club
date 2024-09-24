@@ -84,6 +84,43 @@ form {
     object-fit: cover;
 }
 
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #FF6F61;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: none;
+    height: auto;
+    max-height: 180px; 
+    min-height: 100px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Changement de couleur à l'état actif */
+  textarea:focus {
+    border-color: #FF6F61 !important; /* Couleur bleu claire */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none; /* Supprime le contour bleu standard */
+  }
+  
+  /* Style pour rendre le texte lisible */
+  textarea::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+  
+  /* Réactivité pour les petits écrans */
+  @media (max-width: 768px) {
+    textarea {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
 
 @media (max-width: 768px) {
     .container {
