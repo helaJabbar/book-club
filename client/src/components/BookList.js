@@ -32,7 +32,7 @@ const BookList = () => {
             />
             <div className="card-content">
               <h2>{book.title}</h2>
-              <p>{book.description}</p>
+              <p>{book.author}</p>
             </div>
           </div>
         ))}

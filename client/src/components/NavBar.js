@@ -1,12 +1,21 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginIcon from "../assets/login.png";
 import logoutIcon from "../assets/logout.svg";
 import { UserContext } from "../context/UserContext";
-import "./Navbar.css"; // Assurez-vous que le fichier CSS est bien importé
+import "./Navbar.css"; 
 
 const NavBar = () => {
   const { user, handleLogout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleNewBookClick = (e) => {
+ 
+    if (!user.firstName) {
+      e.preventDefault(); 
+      navigate("/login"); 
+    }
+  };
 
   return (
     <>
@@ -33,12 +42,19 @@ const NavBar = () => {
                 <Link className="nav-link" to="/books">Book List</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/NewBook">New Book</Link>
+                <Link 
+                  className="nav-link" 
+                  to="/NewBook"
+                  onClick={handleNewBookClick}
+                >
+                  New Book
+                </Link>
               </li>
             </ul>
             <div className="navbar-nav ml-auto">
               {user.firstName ? (
                 <>
+                  <span className="nav-link">Welcome {user.firstName} {user.lastName}</span>
                   <Link to="/" className="nav-link btn btn-link" onClick={handleLogout}>
                     <img
                       src={logoutIcon}
@@ -61,7 +77,6 @@ const NavBar = () => {
         </div>
       </nav>
 
-      {/* Div pour afficher le message "Welcome" après le menu */}
       {user.firstName && (
         <div className="welcome-message">
           <h3>Welcome <span id="span-firstName">{user.firstName}</span> <span id="span-lastName">{user.lastName}</span></h3>

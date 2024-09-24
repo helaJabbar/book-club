@@ -1,19 +1,25 @@
-const Book =require('../models/NewBook-Model');
+const Book = require('../models/NewBook-Model');
 
-const NewBook = async (req, res) => {
-  const { title, description } = req.body;
-  const imageUrl = `/uploads/${req.file.filename}`;
-  
+
+exports.NewBook = async (req, res) => {
   try {
-    const newBook = await Book.create({
+    const { title, author, description } = req.body;  
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;  
+
+    if (!title || !author || !description || !imageUrl) {
+      return res.status(400).json({ message: "Tous les champs sont requis, y compris l'image" });
+    }
+
+    const newBook = new Book({
       title,
+      author,
       description,
-      imageUrl
+      imageUrl, 
     });
-    return res.status(201).json({ message: "Livre ajouté avec succès", book: newBook });
-  } catch (error) {
-    return res.status(400).json({ message: "Erreur lors de l'ajout du livre", error });
+
+    await newBook.save();
+    res.status(201).json(newBook);
+  } catch (err) {
+    res.status(500).json({ message: "Erreur lors de la création du livre", error: err });
   }
 };
-
-module.exports = { NewBook };

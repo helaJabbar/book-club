@@ -5,6 +5,7 @@ import "./Form.css";
 const NewBook = () => {
   const [book, setBook] = useState({
     title: "",
+    author: "",  // Ajout du champ author
     description: "",
     image: null,
   });
@@ -27,29 +28,36 @@ const NewBook = () => {
 
     const formData = new FormData();
     formData.append("title", book.title);
+    formData.append("author", book.author);  // Ajouter l'auteur dans le formData
     formData.append("description", book.description);
     formData.append("image", book.image);
 
+    console.log("Form data ready to send:", formData);  // Log pour voir le contenu de formData
+
     try {
-        await axios.post("http://localhost:8000/api/books/add-book", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+      const response = await axios.post(
+        "http://localhost:8000/api/books/add-book", 
+        formData, 
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log("Response from server:", response);  // Log pour voir la réponse du serveur
+      alert("Livre ajouté avec succès");
 
-        alert("Livre ajouté avec succès");
-
-        setBook({
-            title: "",
-            description: "",
-            image: null,
-        });
-        setImagePreview(null);
-        fileInputRef.current.value = ""; 
+      // Réinitialiser le formulaire après soumission
+      setBook({
+        title: "",
+        author: "",  // Réinitialiser l'auteur
+        description: "",
+        image: null,
+      });
+      setImagePreview(null);
+      fileInputRef.current.value = "";
     } catch (error) {
-        console.error("Erreur lors de l'ajout du livre", error);
+      console.error("Erreur lors de l'ajout du livre:", error.response ? error.response.data : error);
     }
-};
-
-
+  };
 
   return (
     <div className="container">
@@ -69,6 +77,22 @@ const NewBook = () => {
                 value={book.title}
                 onChange={handleChange}
                 placeholder="Entrer le titre du livre"
+                required
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="author" className="form-label">
+                Auteur
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="author"
+                name="author"
+                value={book.author}
+                onChange={handleChange}
+                placeholder="Entrer le nom de l'auteur"
                 required
               />
             </div>
@@ -97,7 +121,7 @@ const NewBook = () => {
                 className="form-control"
                 id="image"
                 name="image"
-                ref={fileInputRef} // Ajoute la référence ici
+                ref={fileInputRef}
                 onChange={handleChange}
                 required
               />
