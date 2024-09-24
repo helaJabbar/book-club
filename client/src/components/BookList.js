@@ -13,8 +13,7 @@ const BookList = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        
-        const response = await axios.get("http://localhost:8000/api/books"); 
+        const response = await axios.get("http://localhost:8000/api/books");
         setBooks(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des livres:", error);
@@ -25,8 +24,10 @@ const BookList = () => {
   }, []);
 
   const handleCardClick = (bookId) => {
-    if (user.firstName) {
+    if (user && user.firstName) {
       navigate(`/books/${bookId}`); // Rediriger vers CardDetails si l'utilisateur est connecté
+    } else {
+      navigate('/login'); // Rediriger vers la page de login si l'utilisateur n'est pas connecté
     }
   };
 
