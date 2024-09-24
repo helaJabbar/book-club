@@ -30,8 +30,30 @@ h1{
     font-family: 'Baskerville', serif;
     color: #333;
 }
+.form-span{
+    font-family: 'Baskerville', serif;
+    color: #FF6F61;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.img-book-card{
+    float: right; 
+  margin-left: 20px; 
+  margin-bottom: 10px; 
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+.book-card{
+    background-color: #f4f9f8;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px !important;
+    margin:50px auto; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 
-
+}
 .form-control {
     padding: 10px;
     border-radius: 5px;
@@ -74,7 +96,11 @@ h1{
     color: #B2E0D9; 
     text-decoration: none; 
 }
-
+.book-title{
+    color: #FF6F61;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
 form {
     margin-top: 20px;
 }
