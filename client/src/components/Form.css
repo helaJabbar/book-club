@@ -126,22 +126,21 @@ textarea {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Changement de couleur à l'état actif */
+
   textarea:focus {
-    border-color: #FF6F61 !important; /* Couleur bleu claire */
+    border-color: #FF6F61 !important; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none; /* Supprime le contour bleu standard */
+    outline: none; 
   }
   
-  /* Style pour rendre le texte lisible */
+
   textarea::placeholder {
     color: #aaa;
     font-style: italic;
   }
 
   .book-cover-container {
-    position: relative;  /* Ajoute la position relative pour le conteneur de l'image */
+    position: relative;  
     display: inline-block;
   }
   
@@ -149,12 +148,58 @@ textarea {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+  }
+  /******************************************************/
+  /*code recupere du site https://codepen.io/ShortCode/pen/jOrBeOw**********************************/
+  .search-box {
+    position: relative;
+    top:-30px;
   }
   
+  .search-input {
+    padding: 10px;
+    width: 50px;  
+    height: 50px;
+    background: none;
+    border: 4px solid #B2E0D9; 
+    border-radius: 50px;
+    box-sizing: border-box;
+    font-family: Comic Sans MS;
+    font-size: 0;  
+    color: black;
+    outline: none;
+    transition: width 0.5s ease, font-size 0.5s ease; 
+  }
   
-  /* Réactivité pour les petits écrans */
+  .search-box:hover .search-input {
+    width: 350px;  
+    background: transparent;
+    border-radius: 10px;
+    font-size: 14px; 
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 60%;
+    top:45px;
+    right: 10px;  
+    transform: translateY(-50%);  
+    font-size: 26px;
+    color: #B2E0D9; 
+    transition: opacity 0.2s ease;
+  }
+  
+  .search-box:hover .search-icon {
+    opacity: 0;
+    z-index: -1;
+  }
+  
+
+  /******************************************************/
+  
+ 
   @media (max-width: 768px) {
     textarea {
       font-size: 14px;
@@ -177,7 +222,7 @@ textarea {
     }
 }
 .book-cover-container {
-    position: relative;  /* Le conteneur de l'image doit être positionné relativement pour que l'image de favori soit placée à l'intérieur */
+    position: relative;  
     display: inline-block;
   }
   
@@ -186,9 +231,9 @@ textarea {
     top: 60px;  
     left: 90%;
    
-    width: 100px ;  /* Taille de l'image préférée */
-    height: auto;  /* Taille de l'image préférée */
-    cursor: pointer;  /* Style de curseur pour indiquer que l'image est cliquable */
-    z-index: 10;  /* Assure que l'image est au-dessus des autres éléments */
+    width: 100px ; 
+    height: auto;  
+    cursor: pointer; 
+    z-index: 10; 
   }
   

@@ -8,8 +8,7 @@ import NewBook from "./components/NewBook";
 import Register from "./components/Register";
 import EditBook from './components/EditBook';  // Ajout de l'importation pour la page EditBook
 import { UserProvider } from './context/UserContext';  // Importation du contexte utilisateur
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function App() {
