@@ -1,112 +1,119 @@
+/* Conteneur principal de la liste des livres */
 .book-list {
-    padding: 40px;
-    background-color: #f4f4f9;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .book-list h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 200px)); 
-    gap: 20px;
-    width: 100%;
-    max-width: 12000px;
-  }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    width: 100%;
-    max-width: 600px; 
-  }
-  
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-image {
-    width: 100%;
-    height: 250px; 
-    object-fit: cover;
-    border-bottom: 3px solid #B2E0D9 ;
-  }
-  
-  .card-content {
-    padding: 20px;
-    text-align: left;
-  }
-  
+  padding: 40px;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-list h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Conteneur des cartes */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 250px)); 
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Style des cartes individuelles */
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  width: 100%;
+  max-width: 600px; 
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Image de la carte */
+.card-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 3px solid #B2E0D9;
+}
+
+/* Contenu de la carte */
+.card-content {
+  padding: 20px;
+  text-align: left;
+}
+
+.card-content h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #FF6F61;
+  text-transform: capitalize;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-content p::after {
+  content: '...';
+  display: inline-block;
+}
+
+/* Carte d'édition d'un livre */
+.edit-book-card {
+  width: 500px;
+  position: relative;
+  top: 20px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* Conteneur de la couverture du livre */
+.book-cover-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Étoile des favoris */
+.favorite-star {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 80px;
+  height: 80px;
+}
+
+/* Responsiveness pour petits écrans */
+@media (max-width: 768px) {
   .card-content h2 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    color: #FF6F61;
-    text-transform: capitalize;
-  }
-  
-  .card-content p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
-    height: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .card-content p::after {
-    content: '...';
-    display: inline-block;
-  }
-  
-  .edit-book-card{
-    width:500px;
-    position: relative;
-    top: 20px;
-    margin: auto;
-    background-color: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    width: 100%;
-    max-width: 600px; 
-    padding:10px;
-  }
-  .book-cover-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .favorite-star {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 80px;
-    height: 80px;
-  }
-  
-  @media (max-width: 768px) {
-    .card-content h2 {
       font-size: 1.4rem;
-    }
-  
-    .card-content p {
-      font-size: 0.9rem;
-    }
   }
-  
+
+  .card-content p {
+      font-size: 0.9rem;
+  }
+}

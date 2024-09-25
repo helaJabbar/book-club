@@ -1,239 +1,214 @@
+/* Conteneur principal */
 .container {
-    background-color: #f4f9f8;
-    padding: 30px;
-    border-radius: 10px;
-    
-    max-width: 600px !important;
-    margin:50px auto; 
-    padding: 20px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: #f4f9f8;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px !important;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.book-club-title {
-    font-family: 'StickyBook', serif;
-    color: #FF6F61; 
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-h1{
-    font-family: 'StickyBook', serif;
-    color: #FF6F61 !important; 
-    font-size: 2.5rem;
-    font-weight: bold;
+/* Titre du site */
+.book-club-title, h1 {
+  font-family: 'StickyBook', serif;
+  color: #FF6F61;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
+/* Formulaires */
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.form-label, .form-span {
+  font-family: 'Baskerville', serif;
 }
 
 .form-label {
-    font-family: 'Baskerville', serif;
-    color: #333;
+  color: #333;
 }
-.form-span{
-    font-family: 'Baskerville', serif;
-    color: #FF6F61;
-    font-weight: bold;
-    font-size: 1.1em;
+
+.form-span {
+  color: #FF6F61;
+  font-weight: bold;
+  font-size: 1.1em;
 }
-.img-book-card{
-  float: right !important; 
-  margin-left: 20px; 
-  margin-bottom: 10px; 
+
+.form-control, textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #FF6F61;
+  font-family: 'Open Sans', sans-serif;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  resize: none;
+  max-height: 180px;
+  min-height: 100px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+textarea:focus {
+  border-color: #FF6F61 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+form {
+  margin-top: 20px;
+}
+
+/* Boutons */
+.btn-primary {
+  background-color: #B2E0D9 !important;
+  border: none !important;
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: #B2E0D9;
+}
+
+/* Liens */
+.text-center a, .nav-link.btn-link, .book-title {
+  font-family: 'Open Sans', sans-serif;
+  color: #FF6F61;
+  text-decoration: none;
+}
+
+.text-center a:hover, .nav-link.btn-link:hover {
+  color: #B2E0D9;
+  text-decoration: none;
+}
+
+/* Image de la carte */
+.img-book-card {
+  float: right !important;
+  margin-left: 20px;
+  margin-bottom: 10px;
   width: 200px;
   height: auto;
   border-radius: 8px;
 }
-.book-card{
-    background-color: #f4f9f8;
-    padding: 30px;
-    border-radius: 10px;
-    max-width: 600px !important;
-    margin:50px auto; 
-    padding: 20px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 
-}
-.form-control {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #FF6F61; 
-    font-family: 'Open Sans', sans-serif;
+/* Carte des livres */
+.book-card {
+  background-color: #f4f9f8;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px !important;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary {
-    background-color: #B2E0D9 !important; 
-    border: none !important; 
-    outline: none; 
-    font-family: 'Open Sans', sans-serif;
-    padding: 10px 15px;
-    border-radius: 5px;
-    width: 100%;
-    transition: background-color 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Téléchargement d'image */
+#img-uploaded {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
-.btn-primary:hover {
-    background-color: #B2E0D9;
+/* Étoile des favoris */
+.book-cover-container, .favorite-star {
+  position: relative;
 }
 
-.text-center a {
-    color: #FF6F61;
-    text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
+.favorite-star {
+  top: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
 }
 
-.text-center a:hover {
-    text-decoration: underline;
+/* Recherche */
+.search-box {
+  position: relative;
+  top: -30px;
 }
 
-.nav-link.btn-link {
-    color: #FF6F61; 
-    text-decoration: none; 
+.search-input {
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: 4px solid #B2E0D9;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-family: Comic Sans MS;
+  font-size: 0;
+  color: black;
+  outline: none;
+  transition: width 0.5s ease, font-size 0.5s ease;
 }
 
-.nav-link.btn-link:hover {
-    color: #B2E0D9; 
-    text-decoration: none; 
-}
-.book-title{
-    color: #FF6F61;
-    text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
-}
-form {
-    margin-top: 20px;
-}
-#img-uploaded{
-    width: 50px; 
-    height: 50px;
-    object-fit: cover;
+.search-box:hover .search-input {
+  width: 350px;
+  background: transparent;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #FF6F61;
-    border-radius: 8px;
-    font-size: 16px;
-    line-height: 1.5;
-    resize: none;
-    height: auto;
-    max-height: 180px; 
-    min-height: 100px;
-    background-color: #f9f9f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+.search-icon {
+  position: absolute;
+  top: 35px;
+  right: 10px;
+  font-size: 24px;
+  color: #B2E0D9;
+  transition: opacity 0.2s ease;
+}
 
-  textarea:focus {
-    border-color: #FF6F61 !important; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none; 
-  }
-  
+.search-box:hover .search-icon {
+  opacity: 0;
+  z-index: -1;
+}
 
-  textarea::placeholder {
-    color: #aaa;
-    font-style: italic;
-  }
-
-  .book-cover-container {
-    position: relative;  
-    display: inline-block;
-  }
-  
-  .favorite-star {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-  }
-  /******************************************************/
-  /*code recupere du site https://codepen.io/ShortCode/pen/jOrBeOw**********************************/
-  .search-box {
-    position: relative;
-    top:-30px;
-  }
-  
-  .search-input {
-    padding: 10px;
-    width: 50px;  
-    height: 50px;
-    background: none;
-    border: 4px solid #B2E0D9; 
-    border-radius: 50px;
-    box-sizing: border-box;
-    font-family: Comic Sans MS;
-    font-size: 0;  
-    color: black;
-    outline: none;
-    transition: width 0.5s ease, font-size 0.5s ease; 
-  }
-  
-  .search-box:hover .search-input {
-    width: 350px;  
-    background: transparent;
-    border-radius: 10px;
-    font-size: 14px; 
-  }
-  
-  .search-icon {
-    position: absolute;
-    top: 60%;
-    top:45px;
-    right: 10px;  
-    transform: translateY(-50%);  
-    font-size: 26px;
-    color: #B2E0D9; 
-    transition: opacity 0.2s ease;
-  }
-  
-  .search-box:hover .search-icon {
-    opacity: 0;
-    z-index: -1;
-  }
-  
-
-  /******************************************************/
-  
- 
-  @media (max-width: 768px) {
-    textarea {
+/* Média Queries */
+@media (max-width: 768px) {
+  textarea {
       font-size: 14px;
       padding: 10px;
-    }
   }
-  
 
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;
-    }
+  .container {
+      padding: 20px;
+  }
 
-    .book-club-title {
-        font-size: 2rem;
-    }
+  .book-club-title {
+      font-size: 2rem;
+  }
 
-    .btn-primary {
-        font-size: 1rem;
-    }
+  .btn-primary {
+      font-size: 1rem;
+  }
 }
-.book-cover-container {
-    position: relative;  
-    display: inline-block;
-  }
-  
-  .prefere-button {
-    position: relative;
-    top: 60px;  
-    left: 90%;
-   
-    width: 100px ; 
-    height: auto;  
-    cursor: pointer; 
-    z-index: 10; 
-  }
-  
+
+/* Bouton préféré */
+.prefere-button {
+  position: relative;
+  top: 60px;
+  left: 90%;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  z-index: 10;
+}

@@ -5,33 +5,37 @@
   
   .hero {
     display: flex;
-    flex-direction: column;  /* Aligne les éléments en colonne (verticalement) */
-    justify-content: center;  /* Centre les éléments verticalement */
-    align-items: center;  /* Centre les éléments horizontalement */
-    height: 70vh;  /* La section occupe toute la hauteur de la fenêtre */
-    background-color: #f5f5f5;  /* Ajoute un fond (si nécessaire) */
-    text-align: center;  /* Centre le texte dans chaque élément */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 70vh; 
+    background-color: #f5f5f5;  
+    text-align: center; 
   }
   
-  .hero h1 {
-    font-size: 3rem;  /* Taille du texte pour le titre */
-    margin-bottom: 20px;  /* Espace sous le titre */
+  h1 {
+   
+    font-family: 'StickyBook', serif;
+    color: #FF6F61;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
   }
   
   .hero p {
-    font-size: 1.5rem;  /* Taille du texte pour le paragraphe */
-    color: #777;  /* Couleur du texte du paragraphe */
+    font-size: 1.5rem;  
+    color: #777;  
   }
   
   .features {
     margin: 40px 0;
     display: flex;
-    flex-direction: column;  /* Aligne les éléments en colonne (verticalement) */
-    justify-content: center;  /* Centre les éléments verticalement */
-    align-items: center;  /* Centre les éléments horizontalement */
-    height: 70vh;  /* La section occupe toute la hauteur de la fenêtre */
-    background-color: #f5f5f5;  /* Ajoute un fond (si nécessaire) */
-    text-align: center;  /* Centre le texte dans chaque élément */
+    flex-direction: column; 
+    justify-content: center;  
+    align-items: center; 
+    height: 70vh;  
+    background-color: #f5f5f5;  
+    text-align: center; 
   }
   
   .before::before {
@@ -60,7 +64,7 @@
   
   .book-slide {
     padding: 10px;
-    text-align: center;
+    text-align: left;
   }
   
   .book-slide-image {
