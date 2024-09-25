@@ -176,3 +176,19 @@ textarea {
         font-size: 1rem;
     }
 }
+.book-cover-container {
+    position: relative;  /* Le conteneur de l'image doit être positionné relativement pour que l'image de favori soit placée à l'intérieur */
+    display: inline-block;
+  }
+  
+  .prefere-button {
+    position: relative;
+    top: 60px;  
+    left: 90%;
+   
+    width: 100px ;  /* Taille de l'image préférée */
+    height: auto;  /* Taille de l'image préférée */
+    cursor: pointer;  /* Style de curseur pour indiquer que l'image est cliquable */
+    z-index: 10;  /* Assure que l'image est au-dessus des autres éléments */
+  }
+  

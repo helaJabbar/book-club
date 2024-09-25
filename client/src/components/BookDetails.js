@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext"; 
 import "./Form.css";
 import etoile from "../assets/favori.png";
-
+import prefere from "../assets/prefere.png";
 const BookDetails = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
@@ -102,9 +102,13 @@ const BookDetails = () => {
       </div>
       {/* Les actions (boutons) sont séparées du texte */}
       <div className="actions">
-        <button className="btn btn-primary w-100" onClick={addToFavorites}>
-          Ajouter aux favoris
-        </button>
+      <img
+          src={prefere}
+          alt="Ajouter aux favoris"
+          className="prefere-button"
+          onClick={addToFavorites}  // Fonction de clic pour ajouter aux favoris
+          style={{ cursor: "pointer", width: "50px", height: "50px" }}  // Style optionnel
+        />
         <button className="btn btn-primary w-100" onClick={deleteBook}>
           Supprimer
         </button>
