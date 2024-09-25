@@ -10,9 +10,12 @@ const {
   updateBook,
   deleteBook,
 } = require("../controllers/NewBook-Controller");
+
 const { registerUser } = require("../controllers/Register-Controller");
 const { loginUser } = require("../controllers/Login-Controller");
-const { addToFavorites, getFavorites } = require("../controllers/Favoris-Controller");
+
+// *** Ajoutez cette ligne ici ***
+const { addToFavorites, getFavorites, removeFromFavorites } = require("../controllers/Favoris-Controller"); // Import correct des fonctions du contrôleur Favoris
 
 // Configuration de multer pour la gestion des images
 const storage = multer.diskStorage({
@@ -50,8 +53,9 @@ router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
 
 // Routes pour la gestion des favoris
-router.post("/users/:userId/add-favorite", addToFavorites);
-router.get("/users/:userId/favorites", getFavorites);
+router.post("/users/:userId/add-favorite", addToFavorites);  // Ajout d'un favori
+router.post("/users/:userId/remove-favorite", removeFromFavorites);  // Suppression d'un favori
+router.get("/users/:userId/favorites", getFavorites);  // Récupération des favoris
 
 // Route par défaut pour récupérer tous les livres
 router.get("/", getAllBooks);

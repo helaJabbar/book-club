@@ -16,7 +16,7 @@
   h1 {
    
     font-family: 'StickyBook', serif;
-    color: #FF6F61;
+    color: #FF6F61 !important;
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 20px;

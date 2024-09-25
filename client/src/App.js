@@ -12,6 +12,9 @@ import Register from "./components/Register";
 import EditBook from "./components/EditBook"; // Ajout de l'importation pour la page EditBook
 import { UserProvider } from "./context/UserContext"; // Importation du contexte utilisateur
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 /************CARROUSSEL************************** */
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
