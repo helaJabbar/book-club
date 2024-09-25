@@ -16,6 +16,13 @@ const NavBar = () => {
     }
   };
 
+  // Fonction pour la déconnexion et la redirection vers l'accueil avec un rafraîchissement de page
+  const handleLogoutClick = () => {
+    handleLogout();
+    navigate("/");  // Redirige vers la page d'accueil après la déconnexion
+    window.location.reload();  // Rafraîchit la page après la déconnexion
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg">
@@ -63,7 +70,7 @@ const NavBar = () => {
                   <Link
                     to="/"
                     className="nav-link btn btn-link"
-                    onClick={handleLogout}
+                    onClick={handleLogoutClick}
                   >
                     <img
                       src={logoutIcon}

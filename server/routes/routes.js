@@ -1,31 +1,33 @@
 const express = require("express");
+const multer = require("multer");
+const { check } = require("express-validator");
+
+// Import des fonctions CRUD et de gestion des utilisateurs/favoris
 const {
   NewBook,
   getAllBooks,
   getBookById,
   updateBook,
   deleteBook,
-} = require("../controllers/NewBook-Controller");  // Import des fonctions CRUD
+} = require("../controllers/NewBook-Controller");
 const { registerUser } = require("../controllers/Register-Controller");
 const { loginUser } = require("../controllers/Login-Controller");
-const { addToFavorites, getFavorites } = require("../controllers/Favoris-Controller");  // Import des fonctions favoris
-const { check } = require("express-validator");
-const multer = require("multer");
+const { addToFavorites, getFavorites } = require("../controllers/Favoris-Controller");
 
-// Configuration de multer pour les fichiers image
+// Configuration de multer pour la gestion des images
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");  // Assurez-vous que ce dossier existe
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
-
 const upload = multer({ storage });
+
 const router = express.Router();
 
-// Route pour l'inscription des utilisateurs
+// Routes pour la gestion des utilisateurs
 router.post(
   "/register",
   [
@@ -38,35 +40,21 @@ router.post(
   ],
   registerUser
 );
-
-// Route pour la connexion des utilisateurs
 router.post("/login", loginUser);
 
-// Route pour ajouter un nouveau livre (Create)
+// Routes CRUD pour la gestion des livres
 router.post("/add-book", upload.single("image"), NewBook);
-
-// Route pour récupérer tous les livres (Read - BookList.js)
 router.get("/books", getAllBooks);
-
-// Route pour récupérer un livre par ID (Read - BookDetails.js)
 router.get("/books/:id", getBookById);
-
-// Route pour mettre à jour un livre (Update - EditBook.js)
 router.put("/:id", updateBook);
-
-// Route pour supprimer un livre (Delete)
 router.delete("/:id", deleteBook);
 
-// Route pour ajouter un livre aux favoris de l'utilisateur
+// Routes pour la gestion des favoris
 router.post("/users/:userId/add-favorite", addToFavorites);
-
-
-// Route pour récupérer les livres favoris de l'utilisateur
 router.get("/users/:userId/favorites", getFavorites);
 
-
-router.get("/", getAllBooks);  // Récupérer tous les livres
-router.get("/:id", getBookById);  // Route pour récupérer un livre par son ID
-
+// Route par défaut pour récupérer tous les livres
+router.get("/", getAllBooks);
+router.get("/:id", getBookById);
 
 module.exports = router;
