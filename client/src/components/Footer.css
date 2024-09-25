@@ -1,0 +1,26 @@
+.footer {
+    background-color:#B2E0D9;
+    color: #fff;
+    text-align: center;
+    
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+  }
+  
+  .footer-icon {
+    font-size: 30px;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-icon:hover {
+    color: #FF6F61; 
+  }
+  .footer p{
+      font-size: 12px;
+      margin:auto;
+  }

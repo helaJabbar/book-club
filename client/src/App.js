@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import BookList from "./components/BookList";
 import BookDetails from "./components/BookDetails";  // Importation correcte de BookDetails
 import NavBar from "./components/NavBar";
+import Footer from './components/Footer'; 
+
 import NewBook from "./components/NewBook";
 import Register from "./components/Register";
 import EditBook from './components/EditBook';  // Ajout de l'importation pour la page EditBook
@@ -26,6 +28,7 @@ function App() {
           <Route path="/edit-book/:id" element={<EditBook />} />  {/* Route pour la page de modification */}
           <Route path="/" element={<BookList />} />
         </Routes>
+        <Footer />
       </Router>
     </UserProvider>
   );
