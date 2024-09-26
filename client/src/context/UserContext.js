@@ -27,7 +27,13 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('lastName');
     localStorage.removeItem('userId'); 
     window.location.reload();
+    setUser(null);  
+  localStorage.clear(); 
   };
+
+
+
+
 
   return (
     <UserContext.Provider value={{ user, handleLogin, handleLogout }}>

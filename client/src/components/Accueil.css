@@ -38,6 +38,16 @@
     text-align: center; 
   }
   
+
+  .recent-books
+  {
+    margin: 40px 0; 
+    align-items: center; 
+    height: 70vh;  
+    width: 100%;
+
+    text-align: center; 
+  }
   .before::before {
     content: '“';  
     font-size: 100px; 
@@ -59,20 +69,63 @@
   }
   
   .recent-books {
-    margin: 40px 0;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
   }
   
-  .book-slide {
-    padding: 10px;
-    text-align: left;
+  .carousel-caption h3 {
+    font-size: 1.5em;
+    color: #fff;
   }
   
-  .book-slide-image {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 10px;
+  .carousel-caption p {
+    font-size: 1em;
+    color: #fff;
   }
+  .carousel-item img {
+    max-width: 50%;     /* Ajuster à la largeur maximale disponible */
+    max-height: 200px;   /* Limite la hauteur des images */
+    object-fit: cover;   /* Assure que les images restent bien proportionnées */
+    margin: 0 auto;      /* Centrer les images */
+  }
+/* Modifier la couleur et l'apparence des flèches */
+/* Remplace les icônes SVG par les symboles < et > */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  display: none; /* Masque les icônes SVG par défaut */
+}
+
+/* Style pour la flèche gauche (<) */
+.carousel-control-prev {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #B2E0D9; /* Changer la couleur de la flèche */
+}
+
+.carousel-control-prev::before {
+  content: "<"; /* Remplace l'icône par le symbole < */
+  font-size: 3rem;
+  color: #B2E0D9; /* Couleur de la flèche gauche */
+}
+
+/* Style pour la flèche droite (>) */
+.carousel-control-next {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #B2E0D9; /* Changer la couleur de la flèche */
+}
+
+.carousel-control-next::before {
+  content: ">"; /* Remplace l'icône par le symbole > */
+  font-size: 3rem;
+  color: #B2E0D9; /* Couleur de la flèche droite */
+}
+
+
+  
   
   .testimonials {
     background-color: #f5f5f5;

@@ -3,21 +3,24 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { Modal, Button } from "react-bootstrap";
+
 import "./Form.css";
 import "./Modal.css";
+
 import etoile from "../assets/favori.png";
 import prefere from "../assets/prefere.png";
-import dislike from "../assets/dislike.png";  // Nouvelle image dislike
+import dislike from "../assets/dislike.png";
 import supp from "../assets/delete.png";
 
 const BookDetails = () => {
   const { id } = useParams();
+
   const [book, setBook] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [favoriteImage, setFavoriteImage] = useState(prefere); // Ajoutez un état pour gérer l'image du bouton
+  const [favoriteImage, setFavoriteImage] = useState(prefere);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false); // State for modal
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -33,7 +36,7 @@ const BookDetails = () => {
           );
           if (favoriteResponse.data.favorites.includes(id)) {
             setIsFavorite(true);
-            setFavoriteImage(dislike); // Change l'image si c'est déjà dans les favoris
+            setFavoriteImage(dislike);
           }
         } else {
           console.error("ID utilisateur non défini");
@@ -53,16 +56,21 @@ const BookDetails = () => {
       if (!user.userId) {
         throw new Error("Utilisateur non connecté");
       }
-  
+
       if (isFavorite) {
-        // Requête pour supprimer des favoris
-        await axios.post(`http://localhost:8000/api/books/users/${user.userId}/remove-favorite`, { bookId: id });
+        await axios.post(
+          `http://localhost:8000/api/books/users/${user.userId}/remove-favorite`,
+          
+          { bookId: id }
+        );
         setIsFavorite(false);
         setFavoriteImage(prefere);
         alert("Livre retiré des favoris");
       } else {
-        // Requête pour ajouter aux favoris
-        await axios.post(`http://localhost:8000/api/books/users/${user.userId}/add-favorite`, { bookId: id });
+        await axios.post(
+          `http://localhost:8000/api/books/users/${user.userId}/add-favorite`,
+          { bookId: id }
+        );
         setIsFavorite(true);
         setFavoriteImage(dislike);
         alert("Livre ajouté aux favoris");
@@ -71,25 +79,28 @@ const BookDetails = () => {
       console.error("Erreur lors de la modification des favoris", error);
     }
   };
-  
 
   const deleteBook = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/books/${id}`);
+
+      await axios.delete(`http://localhost:8000/api/books/delete/${id}`, {
+        data: { userId: user.userId },
+      });
       alert("Livre supprimé avec succès");
       navigate("/books");
     } catch (error) {
       console.error("Erreur lors de la suppression du livre", error);
+      alert("Vous n'êtes pas autorisé à supprimer ce livre.");
     }
   };
 
   const handleDeleteClick = () => {
-    setShowModal(true); // Show modal on delete button click
+    setShowModal(true);
   };
 
   const confirmDelete = () => {
-    setShowModal(false); // Close modal
-    deleteBook(); // Call delete function
+    setShowModal(false);
+    deleteBook();
   };
 
   const editBook = () => {
@@ -121,25 +132,32 @@ const BookDetails = () => {
       </div>
       <div className="actions">
         <img
-          src={favoriteImage}  // Utilisez l'état de l'image ici
+          src={favoriteImage}
           alt={isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
           className="prefere-button"
-          onClick={toggleFavorite}  // Changer entre ajouter/supprimer des favoris
+          onClick={toggleFavorite}
           style={{ cursor: "pointer", width: "50px", height: "50px" }}
         />
-        <button className="btn btn-primary w-100" onClick={handleDeleteClick}>
-          Supprimer
-        </button>
-        <button className="btn btn-primary w-100" onClick={editBook}>
-          Modifier
-        </button>
+
+        {user.userId === book.userId._id && (
+          <>
+            <button
+              className="btn btn-primary w-100"
+              onClick={handleDeleteClick}
+            >
+              Supprimer
+            </button>
+            <button className="btn btn-primary w-100" onClick={editBook}>
+              Modifier
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Modal de confirmation */}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        className="custom-modal" // Ajout de la classe personnalisée
+        className="custom-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title>Confirmation de suppression</Modal.Title>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
 import axios from 'axios';
-import './Accueil.css'; 
+import Carousel from 'react-bootstrap/Carousel';
+import './Accueil.css'; // Assurez-vous que les styles de la page d'accueil sont bien chargés
+
 const Accueil = () => {
   const [recentBooks, setRecentBooks] = useState([]);
 
   useEffect(() => {
-    
     const fetchRecentBooks = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/books');
@@ -18,32 +18,6 @@ const Accueil = () => {
     fetchRecentBooks();
   }, []);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
-
   return (
     <div className="home-page">
       <section className="hero">
@@ -52,9 +26,9 @@ const Accueil = () => {
       </section>
 
       <section className="features">
-        <h1 className='before' >Pourquoi utiliser Book Club ?</h1>
-        <ul >
-          <li >Explorez une vaste bibliothèque de livres</li>
+        <h1 className='before'>Pourquoi utiliser Book Club ?</h1>
+        <ul>
+          <li>Explorez une vaste bibliothèque de livres</li>
           <li>Ajoutez vos livres préférés à vos favoris</li>
           <li>Partagez vos recommandations avec d'autres lecteurs</li>
         </ul>
@@ -62,17 +36,23 @@ const Accueil = () => {
 
       <section className="recent-books">
         <h1>Derniers livres ajoutés</h1>
-        <Slider {...settings}>
+        <Carousel>
           {recentBooks.map((book) => (
-            <div key={book._id} className="book-slide">
-              <img src={`http://localhost:8000${book.imageUrl}`} alt={book.title} className="book-slide-image" />
-              <h3>{book.title}</h3>
-              <p>{book.author}</p>
-            </div>
+            <Carousel.Item key={book._id} interval={1000}>
+              <img
+                className="d-block w-100"
+                src={`http://localhost:8000${book.imageUrl}`}
+                alt={book.title}
+                style={{ maxHeight: '300px', objectFit: 'cover' }}  
+              />
+              <Carousel.Caption>
+                <h3>{book.title}</h3>
+                <p>{book.author}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
           ))}
-        </Slider>
+        </Carousel>
       </section>
-
     </div>
   );
 };

@@ -1,17 +1,20 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 import "./Form.css";
 
 const NewBook = () => {
   const [book, setBook] = useState({
     title: "",
-    author: "",  // Ajout du champ author
+    author: "",
     description: "",
     image: null,
   });
 
+  const { user } = useContext(UserContext);
   const [imagePreview, setImagePreview] = useState(null);
-  const fileInputRef = useRef(null); // Référence pour le champ de fichier
+  const [errors, setErrors] = useState({});
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -21,54 +24,57 @@ const NewBook = () => {
     } else {
       setBook({ ...book, [name]: value });
     }
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     formData.append("title", book.title);
-    formData.append("author", book.author);  // Ajouter l'auteur dans le formData
+    formData.append("author", book.author);
     formData.append("description", book.description);
     formData.append("image", book.image);
-
-    console.log("Form data ready to send:", formData);  // Log pour voir le contenu de formData
-
+    formData.append("userId", user.userId);
+  
+    console.log([...formData.entries()]);  // Ajouté pour voir les données envoyées
+  
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/books/add-book", 
-        formData, 
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        "http://localhost:8000/api/books/add-book",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
-      console.log("Response from server:", response);  // Log pour voir la réponse du serveur
       alert("Livre ajouté avec succès");
-
-      // Réinitialiser le formulaire après soumission
+  
       setBook({
         title: "",
-        author: "",  // Réinitialiser l'auteur
+        author: "",
         description: "",
         image: null,
       });
       setImagePreview(null);
       fileInputRef.current.value = "";
+      setErrors({});
     } catch (error) {
-      console.error("Erreur lors de l'ajout du livre:", error.response ? error.response.data : error);
+      if (error.response && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        console.error("Erreur lors de l'ajout du livre:", error);
+      }
     }
   };
+  
 
   return (
     <div className="container">
       <div className="row justify-content-center my-5">
         <div className="col-md-6">
           <h2 className="text-center book-club-title">Ajouter un Livre</h2>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group my-4">
-              <label htmlFor="title" className="form-label">
-                Titre
-              </label>
+              <label htmlFor="title" className="form-label">Titre</label>
               <input
                 type="text"
                 className="form-control"
@@ -79,12 +85,11 @@ const NewBook = () => {
                 placeholder="Entrer le titre du livre"
                 required
               />
+              {errors.title && <div className="text-danger">{errors.title}</div>} {/* Afficher les erreurs du titre */}
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="author" className="form-label">
-                Auteur
-              </label>
+              <label htmlFor="author" className="form-label">Auteur</label>
               <input
                 type="text"
                 className="form-control"
@@ -95,12 +100,11 @@ const NewBook = () => {
                 placeholder="Entrer le nom de l'auteur"
                 required
               />
+              {errors.author && <div className="text-danger">{errors.author}</div>} {/* Afficher les erreurs de l'auteur */}
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
+              <label htmlFor="description" className="form-label">Description</label>
               <textarea
                 className="form-control"
                 id="description"
@@ -110,12 +114,11 @@ const NewBook = () => {
                 placeholder="Entrer la description"
                 required
               />
+              {errors.description && <div className="text-danger">{errors.description}</div>} {/* Afficher les erreurs de la description */}
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="image" className="form-label">
-                Télécharger une image
-              </label>
+              <label htmlFor="image" className="form-label">Télécharger une image</label>
               <input
                 type="file"
                 className="form-control"
@@ -125,6 +128,7 @@ const NewBook = () => {
                 onChange={handleChange}
                 required
               />
+              {errors.image && <div className="text-danger">{errors.image}</div>} {/* Afficher les erreurs de l'image */}
             </div>
 
             {imagePreview && (
@@ -133,9 +137,7 @@ const NewBook = () => {
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary w-100">
-              Ajouter Livre
-            </button>
+            <button type="submit" className="btn btn-primary w-100">Ajouter Livre</button>
           </form>
         </div>
       </div>

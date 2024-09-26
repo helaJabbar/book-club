@@ -6,22 +6,24 @@ import { UserContext } from "../context/UserContext";
 import "./Navbar.css";
 
 const NavBar = () => {
-  const { user, handleLogout } = useContext(UserContext);
+  const { user, handleLogout } = useContext(UserContext); 
   const navigate = useNavigate();
 
+  // Gestion du clic sur le bouton "New Book"
   const handleNewBookClick = (e) => {
-    if (!user.firstName) {
-      e.preventDefault();
-      navigate("/login");
+    if (!user || !user.firstName) {
+      e.preventDefault(); 
+      navigate("/login"); 
     }
   };
 
-  // Fonction pour la déconnexion et la redirection vers l'accueil avec un rafraîchissement de page
+  // Gestion du clic sur le bouton de déconnexion
   const handleLogoutClick = () => {
-    handleLogout();
-    navigate("/");  // Redirige vers la page d'accueil après la déconnexion
-    window.location.reload();  // Rafraîchit la page après la déconnexion
+    handleLogout(); 
+    localStorage.clear(); 
+    navigate("/"); 
   };
+  
 
   return (
     <>

@@ -1,37 +1,40 @@
-const bcrypt = require('bcrypt');
-const User = require('../models/Register-Model'); // Chemin d'accès au modèle utilisateur
-const { validationResult } = require('express-validator');
+const User = require('../models/User-Model');
 
+// Fonction pour enregistrer un nouvel utilisateur
 exports.registerUser = async (req, res) => {
-  // Validation des erreurs
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { firstName, lastName, email, password } = req.body;
-
   try {
-    
-    let user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({ msg: 'L\'utilisateur existe déjà' });
-    }
+    const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-    // Créer un nouvel utilisateur
-    user = new User({
+    const newUser = new User({
       firstName,
       lastName,
       email,
-      password
+      password,
+      confirmPassword,
     });
 
-    
-    await user.save();
+    await newUser.save();
+    res.status(201).json({ message: "Utilisateur enregistré avec succès" });
+  } catch (err) {
+    // Si c'est une ValidationError, on extrait les messages d'erreurs par champ
+    if (err.name === 'ValidationError') {
+      const errorMessages = extractFieldErrors(err);
+      return res.status(400).json({ message: "Erreur de validation", errors: errorMessages });
+    }
 
-    res.status(201).json({ msg: 'Utilisateur créé avec succès' });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Erreur du serveur');
+    // Gérer d'autres types d'erreurs
+    console.error("Erreur lors de l'enregistrement de l'utilisateur:", err);
+    res.status(500).json({ message: "Erreur du serveur", error: err.message });
   }
+};
+
+
+const extractFieldErrors = (err) => {
+  if (err.name !== 'ValidationError') return {};
+
+
+  return Object.keys(err.errors).reduce((errors, field) => {
+    errors[field] = err.errors[field].message;
+    return errors;
+  }, {});
 };
